@@ -30,9 +30,7 @@ class LinkRepository implements LinkRepositoryContract
 
     private function prepareBeforeStore(Link $link): void
     {
-        if (empty($link->getHash())) {
-            $link->setHash(LinkHash::getHash($link));
-        }
+        $link->setHash(LinkHash::getOriginalHash($link));
     }
 
     private function save(Link $link): bool

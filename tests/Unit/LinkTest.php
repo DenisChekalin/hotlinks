@@ -53,4 +53,22 @@ class LinkTest extends TestCase
         $this->assertFalse($this->linkRepository->getForRedirect($link->getHash())->isEmpty());
         $this->assertTrue($this->linkRepository->getForRedirect($link->getHash())->isEmpty());
     }
+
+    public function testDuplicationLinkHash(): void
+    {
+        $link = new Link();
+        $this->linkRepository->store($link, [
+            'link' => self::REDIRECT_URL,
+            'ttl' => 100,
+            'usageLimit' => 1,
+        ]);
+        $duplicatedLink = new Link();
+        $duplicatedLink->setHash($link->getHash());
+        $this->linkRepository->store($link, [
+            'link' => self::REDIRECT_URL,
+            'ttl' => 100,
+            'usageLimit' => 1,
+        ]);
+        $this->assertNotEquals($link->getHash(), $duplicatedLink->getHash());
+    }
 }
