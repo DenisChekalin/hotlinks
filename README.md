@@ -14,6 +14,14 @@ nginx
 mysql
 redis
 
+Don't forget about 
+git clone https://github.com/DenisChekalin/hotlinks.git
+composer install
+php artisan key:generate
+
+Please set correct REDIS_HOST in your .env file. For ex. for it is:
+REDIS_HOST=redis
+
 Enjoy!
 
 
